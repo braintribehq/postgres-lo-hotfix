@@ -90,7 +90,7 @@ WHERE a.attnum > 0 AND NOT a.attisdropped
 AND a.attrelid = c.oid 
 AND a.atttypid = t.oid 
 AND c.relnamespace = s.oid
-AND t.typname in ('oid', 'lo','text')
+AND t.typname in ('oid', 'lo', 'text', 'varchar', '_varchar', '_text')
 AND c.relkind in ('r', 'v')
 AND s.nspname !~ '^pg_' 
 AND c.relname !~ 'vacuum_lobj';
