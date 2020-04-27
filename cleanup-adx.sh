@@ -131,6 +131,6 @@ done
 cat << EOF | PGPASSWORD=$pass psql -U $username -h $hostname -p $port $database
 DROP TABLE IF EXISTS vacuum_lobj;
 DROP FUNCTION IF EXISTS unlink_orphan_los ( ) ;
-VACUUM ANALYZE VERBOSE pg_largeobject;
-VACUUM ANALYZE VERBOSE pg_largeobject_metadata;
+VACUUM VERBOSE ANALYZE pg_largeobject;
+VACUUM VERBOSE ANALYZE pg_largeobject_metadata;
 EOF
