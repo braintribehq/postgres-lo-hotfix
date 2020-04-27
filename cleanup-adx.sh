@@ -5,18 +5,16 @@ if [ -z ${1} ] || [ "${1}" == "-?" ] || [ "${1}" == "--help" ]; then
 	echo
 	echo "Usage: ${0} -h hostname -p port -U user -W password -d database"
 	echo
-  echo '  -h'
+  	echo '  -h'
 	echo '                  DB hostname to connect to.'
-  echo '  -p'
+  	echo '  -p'
 	echo '                  DB port to connect to, usually 5432.'
 	echo '  -U'
 	echo '                  Username to use for DB connection'
 	echo '  -W'
 	echo '                  Password for DB connection'
-  echo '  -d'
+  	echo '  -d'
 	echo '                  DB name'
-  echo '  -n'
-	echo '                  Dry run. List number of object we are going to delete'
 	echo '  -?, --help'
 	echo '                  Displays this help. This cannot be combined with any other option.'
 	echo
