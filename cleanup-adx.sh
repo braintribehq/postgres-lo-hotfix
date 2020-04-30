@@ -124,7 +124,7 @@ maxcount=$(( $count / 300 + 1 ))
 for (( i=1; i<=$maxcount; i++ )) 
 do
   echo "loop $i of $maxcount"
-  echo 'SELECT unlink_orphan_los()' | PGPASSWORD=$pass psql -beqAt -U $username -h $hostname -p $port $database
+  echo 'SELECT unlink_orphan_los()' | PGPASSWORD=$pass psql -eqAt -U $username -h $hostname -p $port $database
 done  
 
 #cleanup
