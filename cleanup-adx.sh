@@ -67,7 +67,7 @@ echo "Configuration: host:" $hostname ", port:" $port:", user:" $username ", pas
 
 # fill table with ids of all large objects
 echo "Creating table to store oids"
-cat << EOF | PGPASSWORD=$pass psql -U $username -h $hostname -p $port $database
+cat << EOF | PGPASSWORD=$pass psql -q -U $username -h $hostname -p $port $database
 DROP TABLE IF EXISTS vacuum_lobj;
 CREATE TABLE vacuum_lobj AS 
 SELECT oid AS lo FROM pg_largeobject_metadata;
@@ -80,7 +80,7 @@ echo "All objects found: $countallobj"
 
 #delete used objects refs from table
 echo "Deleting referenced objects from oid table"
-cat << EOF |  PGPASSWORD=$pass psql -At -U $username -h $hostname -p $port $database | awk -F '|' '{print "DELETE FROM vacuum_lobj WHERE lo IN (SELECT " $3 "::oid FROM " $1 ".\"" $2 "\");"}' | PGPASSWORD=$pass psql -ebAt -U $username -h $hostname -p $port $database
+cat << EOF |  PGPASSWORD=$pass psql -At -U $username -h $hostname -p $port $database | awk -F '|' '{print "DELETE FROM vacuum_lobj WHERE lo IN (SELECT " $3 "::oid FROM " $1 ".\"" $2 "\");"}' | PGPASSWORD=$pass psql -q -U $username -h $hostname -p $port $database >/dev/null 2>&1
 
 SELECT s.nspname, c.relname, a.attname
 FROM pg_class c, pg_attribute a, pg_namespace s, pg_type t
@@ -99,7 +99,7 @@ count=$(echo 'SELECT count(*) as count FROM vacuum_lobj' | PGPASSWORD=$pass psql
 echo "Objects to be removed: $count"
 
 #declare function
-cat << EOF | PGPASSWORD=$pass psql -At -U $username -h $hostname -p $port $database
+cat << EOF | PGPASSWORD=$pass psql -U $username -h $hostname -p $port $database
 CREATE OR REPLACE FUNCTION unlink_orphan_los() RETURNS VOID AS \$\$
 DECLARE
   iterator integer := 0;
