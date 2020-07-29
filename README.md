@@ -37,7 +37,7 @@ The following command will start the script and remove orphaned LOBs on the give
 ```
 
 #### VACUUM FULL Considerations
-The final step in reclaiming storage is to do a `VACUUM FULL` run. This, however, requires a lock on the tables that are considered by the `VACCUM FULL` execution, so it is neccessary to shutdown all operations on DB while `VACUUM FULL` is running. Please also make sure that there is enough free disk space available, at least the size of the largest table in the database should be free. This step is only needed after
+The final step in reclaiming storage is to do a `VACUUM FULL` run. This, however, requires a lock on the tables that are considered by the `VACCUM FULL` execution, so it is neccessary to shutdown all operations on DB while `VACUUM FULL` is running. Please also make sure that there is enough free disk space available, at least the size of the largest table in the database should be free. This step is only needed after a large amount of data was cleaned up and you want to shrink the actual DB size on the disk.
 
 Here is an example of how to invoke `VACUUM FULL`:
 
